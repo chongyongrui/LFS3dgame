@@ -23,6 +23,16 @@ public class thridpersonscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = 12f;
+        }
+        else
+        {
+            speed = 6f;
+        }
+        
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
         Vector3 direction = new Vector3 (horizontal, 0f, vertical).normalized;
