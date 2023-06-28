@@ -13,6 +13,8 @@ public class thridpersonscript : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothSpeed;
 
+    public float gravity = -10f;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class thridpersonscript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed = 12f;
@@ -44,7 +46,9 @@ public class thridpersonscript : MonoBehaviour
             transform.rotation = Quaternion.Euler(0f, angle, 0f);
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            moveDir.y = gravity  * Time.deltaTime;
             characterController.Move(moveDir.normalized * speed * Time.deltaTime);
+            
         }
 
     }
