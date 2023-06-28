@@ -13,7 +13,7 @@ public class thridpersonscript : MonoBehaviour
     public float turnSmoothTime = 0.1f;
     float turnSmoothSpeed;
 
-    public float gravity = -10f;
+    public float gravity = -1000f;
 
 
     // Start is called before the first frame update
@@ -47,7 +47,7 @@ public class thridpersonscript : MonoBehaviour
 
             Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             moveDir.y = gravity  * Time.deltaTime;
-            characterController.Move(moveDir.normalized * speed * Time.deltaTime);
+            characterController.Move(moveDir * speed * Time.deltaTime);
             
         }
 
