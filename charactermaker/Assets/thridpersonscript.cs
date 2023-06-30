@@ -28,11 +28,11 @@ public class thridpersonscript : MonoBehaviour
 
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            speed = 12f;
+            speed = 50f;
         }
         else
         {
-            speed = 6f;
+            speed = 12f;
         }
         
         float horizontal = Input.GetAxisRaw("Horizontal");
