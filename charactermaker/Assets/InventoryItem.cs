@@ -7,10 +7,9 @@ using UnityEngine.UI;
 public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
 {
 
-    Transform parentAfterDrag;
+    [HideInInspector] public Transform parentAfterDrag;
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //throw new System.NotImplementedException();
         Debug.Log("Begin drag");
         parentAfterDrag = transform.parent;
         transform.SetParent(transform.root);
@@ -22,12 +21,15 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IEndDragHandler, 
         //throw new System.NotImplementedException();
         Debug.Log("Dragging");
         transform.position = Input.mousePosition;
+        
+        
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         //throw new System.NotImplementedException();
         Debug.Log("End drag");
+        transform.rotation = Quaternion.Euler(0, 0, 0);
         transform.SetParent(parentAfterDrag);
     }
 
