@@ -8,7 +8,7 @@ public class Item : ScriptableObject
 {
     public string id;
     public string name;
-    public Sprite icon;
+    public Sprite image;
     public bool stackable;
     public GameObject prefab;
     
