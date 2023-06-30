@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,11 +9,16 @@ public class PickUpObject : MonoBehaviour
     bool canpickup; //a bool to see if you can or cant pick up the item
     GameObject gunToPickUp; // the gameobject onwhich you collided with
     bool hasItem; // a bool to see if you have an item in your hand
+    
+    
+    List<GameObject> list = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
         canpickup = false;    //setting both to false
         hasItem = false;
+        
        
     }
 
@@ -21,19 +27,20 @@ public class PickUpObject : MonoBehaviour
     {
         if (canpickup == true) // if you enter thecollider of the objecct
         {
-            if (Input.GetKeyDown(KeyCode.F))  
+            if (Input.GetKeyDown(KeyCode.F) && hasItem == false)  
             {
                 gunToPickUp.GetComponent<Rigidbody>().isKinematic = true;   //makes the rigidbody not be acted upon by forces
                 gunToPickUp.transform.position = myHands.transform.position; // sets the position of the object to your hand position
                 gunToPickUp.transform.parent = myHands.transform; //makes the object become a child of the parent so that it moves with the hands
                 hasItem = true;
                 BoxCollider[] bc = gunToPickUp.GetComponents<BoxCollider>();
-                foreach (BoxCollider b in bc)
-                {
-                    b.enabled = false ;
-                }
+                bc[0].enabled = false;
 
-                gunToPickUp.transform.rotation = Quaternion.Euler(3.31f,157,-200);
+                Quaternion myRotation = Quaternion.identity;
+                myRotation.eulerAngles = new Vector3(-7.5f, 172, -260);
+                gunToPickUp.transform.rotation = myRotation;
+                //list.Add(gunToPickUp);
+                
             }
 
 
@@ -47,10 +54,9 @@ public class PickUpObject : MonoBehaviour
             hasItem = false;
 
             BoxCollider[] bc = gunToPickUp.GetComponents<BoxCollider>();
-            foreach (BoxCollider b in bc)
-            {
-                b.enabled = true;
-            }
+            bc[0].enabled = true;
+
+
         }
     }
     private void OnTriggerEnter(Collider other) // to see when the player enters the collider
