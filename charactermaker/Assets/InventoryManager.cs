@@ -8,6 +8,66 @@ public class InventoryManager : MonoBehaviour
     public InventorySlot[] InventorySlots;
     public int maxStackedItems = 10;
     public GameObject inventoryItemPrefab;
+
+    int selectedSlot = 0;
+
+
+    public Item GetSelectedItem(bool used){
+        InventorySlot slot = InventorySlots[selectedSlot];
+        InventoryItem itemInSlot = slot.GetComponentInChildren<InventoryItem>();
+        if (itemInSlot != null)
+        {
+            Item item = itemInSlot.item;
+            if (used)
+            {
+                itemInSlot.count--;
+                if (itemInSlot.count <= 0)
+                {
+                    Destroy(itemInSlot.gameObject);
+                }
+                else
+                {
+                    itemInSlot.RefreshCount();
+                }
+            }
+
+            return item;
+
+        }
+        return null;
+    }
+
+
+    private void Start()
+    {
+        ChangeSelectedSlot(0);
+    }
+
+    private void Update()
+    {
+       if (Input.inputString!= null)
+        {
+            bool isNumber = int.TryParse(Input.inputString, out int number);
+            if(isNumber && number>0 && number <7)
+            {
+                ChangeSelectedSlot((int)number-1);
+            }
+        }
+
+    }
+
+    void ChangeSelectedSlot(int newValue)
+    {
+        if (selectedSlot >= 0)
+        {
+            InventorySlots[selectedSlot].Unselect();
+        }
+        
+        InventorySlots[newValue].Select();
+        selectedSlot = newValue;
+    }
+
+
     public bool AddItem(Item item)
     {
         for (int i = 0; i < InventorySlots.Length; i++)
