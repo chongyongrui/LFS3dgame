@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PickUpObject : MonoBehaviour
+public class pickUpGunScript : MonoBehaviour
 {
     public GameObject myHands; //reference to your hands/the position where you want your object to go
     bool canpickup; //a bool to see if you can or cant pick up the item
@@ -34,7 +34,7 @@ public class PickUpObject : MonoBehaviour
                 gunToPickUp.transform.parent = myHands.transform; //makes the object become a child of the parent so that it moves with the hands
                 hasItem = true;
                 BoxCollider[] bc = gunToPickUp.GetComponents<BoxCollider>();
-                bc[0].enabled = false;
+                bc[1].enabled = false;
 
                 Quaternion myRotation = Quaternion.identity;
                 myRotation.eulerAngles = new Vector3(-7.5f, 172, -260);
@@ -54,7 +54,7 @@ public class PickUpObject : MonoBehaviour
             hasItem = false;
 
             BoxCollider[] bc = gunToPickUp.GetComponents<BoxCollider>();
-            bc[0].enabled = true;
+            bc[1].enabled = true;
 
 
         }
